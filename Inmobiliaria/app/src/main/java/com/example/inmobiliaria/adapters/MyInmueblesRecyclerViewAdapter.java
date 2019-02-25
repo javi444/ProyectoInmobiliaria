@@ -1,4 +1,4 @@
-package com.example.inmobiliaria;
+package com.example.inmobiliaria.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.inmobiliaria.InmueblesFragment.OnListFragmentInteractionListener;
+import com.example.inmobiliaria.R;
+import com.example.inmobiliaria.fragments.InmueblesFragment.OnListFragmentInteractionListener;
 import com.example.inmobiliaria.dummy.DummyContent.DummyItem;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
+        //holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -58,14 +59,14 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        //public final TextView mIdView;
         public final TextView mContentView;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
+            //mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 

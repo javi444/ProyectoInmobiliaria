@@ -39,7 +39,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                 Registro registro = new Registro(email, password, name);
 
 
-                LoginService service = ServiceGenerator.createService(LoginService.class);
+                /*LoginService service = ServiceGenerator.createService(LoginService.class);
 
 
                 Call<LoginResponse> loginReponseCall = service.doRegister(registro);
@@ -70,7 +70,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                         Toast.makeText(RegistroUsuario.this, "Error de conexión", Toast.LENGTH_SHORT).show();
 
                     }
-                });
+                });*/
             }
         });
     }

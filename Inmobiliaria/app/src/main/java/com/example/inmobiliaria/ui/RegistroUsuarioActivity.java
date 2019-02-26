@@ -7,15 +7,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inmobiliaria.R;
 import com.example.inmobiliaria.models.Registro;
+import com.example.inmobiliaria.responses.LoginResponse;
+import com.example.inmobiliaria.retrofit.generator.ServiceGenerator;
+import com.example.inmobiliaria.retrofit.services.LoginService;
+import com.example.inmobiliaria.util.UtilToken;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegistroUsuarioActivity extends AppCompatActivity {
 
     EditText editTextEmail2, editTextNombre, editTextPass2;
     Button buttonRegistro;
+    TextView tvVolverLogin;
 
 
     @Override
@@ -27,6 +37,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextPass2 = findViewById(R.id.editTextPass2);
         buttonRegistro = findViewById(R.id.buttonRegistro);
+        tvVolverLogin = findViewById(R.id.tvVolverLogin);
 
         buttonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +50,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                 Registro registro = new Registro(email, password, name);
 
 
-                /*LoginService service = ServiceGenerator.createService(LoginService.class);
+                LoginService service = ServiceGenerator.createService(LoginService.class);
 
 
                 Call<LoginResponse> loginReponseCall = service.doRegister(registro);
@@ -55,22 +66,36 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                             //Log.d("token", response.body().getToken());
 
                             //ServiceGenerator.jwtToken = response.body().getToken();
-                            UtilToken.setToken(RegistroUsuario.this, response.body().getToken());
-                            startActivity(new Intent(RegistroUsuario.this, PaginaPrincipal2.class));
+                            UtilToken.setToken(RegistroUsuarioActivity.this, response.body().getToken());
+                            //startActivity(new Intent(RegistroUsuarioActivity.this, PaginaPrincipal2.class));
 
                         } else {
                             // error
-                            Toast.makeText(RegistroUsuario.this, "Error en el registro. Revise los datos introducidos", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegistroUsuarioActivity.this, "Error en el registro. Revise los datos introducidos", Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
                         Log.e("NetworkFailure", t.getMessage());
-                        Toast.makeText(RegistroUsuario.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistroUsuarioActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
-                });*/
+                });
+            }
+        });
+
+        tvVolverLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(
+                        RegistroUsuarioActivity.this,
+                        LoginActivity.class
+                );
+
+                startActivity(i);
+
             }
         });
     }

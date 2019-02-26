@@ -1,4 +1,4 @@
-package com.example.inmobiliaria;
+package com.example.inmobiliaria.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,9 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.inmobiliaria.R;
+import com.example.inmobiliaria.util.UtilToken;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,22 +89,45 @@ public class DashboardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_inmuebles) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_fav) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_mis) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_user) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_exit) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void mostrarInfoUsuarioMenu() {
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+        View headerView = navigationView.getHeaderView(0);
+
+        ImageView iv = headerView.findViewById(R.id.picture);
+        TextView name = headerView.findViewById(R.id.userName);
+        TextView email = headerView.findViewById(R.id.emailUser);
+
+        name.setText(UtilToken.getNombreUser(DashboardActivity.this).substring(0, 1).toUpperCase() + UtilToken.getNombreUser(DashboardActivity.this).substring(1));
+        email.setText(UtilToken.getEmailUser(DashboardActivity.this));
+        Glide.with(this).load(UtilToken.getPhotoUser(DashboardActivity.this)).apply(RequestOptions.circleCropTransform()).into(iv);
+
+
     }
 }

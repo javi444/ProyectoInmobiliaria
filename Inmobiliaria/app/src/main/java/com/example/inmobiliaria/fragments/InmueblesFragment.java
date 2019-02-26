@@ -6,28 +6,44 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.inmobiliaria.adapters.MyInmueblesRecyclerViewAdapter;
 import com.example.inmobiliaria.R;
-import com.example.inmobiliaria.dummy.DummyContent;
-import com.example.inmobiliaria.dummy.DummyContent.DummyItem;
+
+import com.example.inmobiliaria.models.Inmueble;
+import com.example.inmobiliaria.retrofit.generator.ServiceGenerator;
+import com.example.inmobiliaria.retrofit.generator.TipoAutenticacion;
+import com.example.inmobiliaria.retrofit.services.InmuebleInteractionListener;
+import com.example.inmobiliaria.retrofit.services.InmuebleService;
+import com.example.inmobiliaria.util.UtilToken;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link InmuebleInteractionListener}
  * interface.
- */
+        */
 public class InmueblesFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private InmuebleInteractionListener mListener;
+    private Context ctx;
+    private List<Inmueble> inmueblesList;
+    private MyInmueblesRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,7 +85,7 @@ public class InmueblesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyInmueblesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
         }
         return view;
     }
@@ -78,8 +94,8 @@ public class InmueblesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof InmuebleInteractionListener) {
+            mListener = (InmuebleInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -102,8 +118,49 @@ public class InmueblesFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+
+    public void GetInmueble(final boolean update){
+
+        InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
+        //---------------
+        Call<List<Inmueble>> call = service.listInmueble();
+
+        call.enqueue(new Callback<List<Inmueble>>() {
+
+
+            @Override
+            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+                if (response.isSuccessful()) {
+                    // error
+                    Log.e("RequestSuccessful", response.message());
+                    inmueblesList = response.body();
+
+                    adapter = new MyInmueblesRecyclerViewAdapter(
+                            ctx,
+                            inmueblesList,
+                            mListener,
+                            R.layout.fragment_inmuebles
+                    );
+                    recyclerView.setAdapter(adapter);
+                    //}
+
+                } else {
+                    Log.e("RequestError", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Inmueble>> call, Throwable t) {
+                Log.e("NetworkFailure", t.getMessage());
+                //Toast.makeText(FotoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.GetInmueble(true);
+
     }
 }

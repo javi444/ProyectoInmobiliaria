@@ -26,4 +26,20 @@ public class UtilToken {
                 .getString("JWT_KEY", null);
         return jwt;
     }
+
+    public static String getEmailUser(Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        return prefs.getString("emailUser", null);
+
+    }
+
+    public static String getNombreUser(Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        return prefs.getString("nombreUser",null);
+    }
+
+    public static String getPhotoUser(Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        return prefs.getString("fotoUser", null);
+    }
 }

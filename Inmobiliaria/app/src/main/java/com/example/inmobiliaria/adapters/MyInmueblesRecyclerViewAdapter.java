@@ -1,5 +1,6 @@
 package com.example.inmobiliaria.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.example.inmobiliaria.R;
 import com.example.inmobiliaria.fragments.InmueblesFragment.OnListFragmentInteractionListener;
 import com.example.inmobiliaria.dummy.DummyContent.DummyItem;
+import com.example.inmobiliaria.models.Inmueble;
 
 import java.util.List;
 
@@ -19,10 +21,11 @@ import java.util.List;
  */
 public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmueblesRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Inmueble> mValues;
     private final OnListFragmentInteractionListener mListener;
+    Context ctx;
 
-    public MyInmueblesRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyInmueblesRecyclerViewAdapter(Context ctx, List<Inmueble> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

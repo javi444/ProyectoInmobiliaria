@@ -8,26 +8,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.inmobiliaria.R;
-import com.example.inmobiliaria.fragments.InmueblesFragment.OnListFragmentInteractionListener;
-import com.example.inmobiliaria.dummy.DummyContent.DummyItem;
 import com.example.inmobiliaria.models.Inmueble;
+import com.example.inmobiliaria.retrofit.services.InmuebleInteractionListener;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * {@link RecyclerView.Adapter} that can display a {@link Inmueble} and makes a call to the
+ * specified {@link InmuebleInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmueblesRecyclerViewAdapter.ViewHolder> {
 
     private final List<Inmueble> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final InmuebleInteractionListener mListener;
     Context ctx;
 
-    public MyInmueblesRecyclerViewAdapter(Context ctx, List<Inmueble> items, OnListFragmentInteractionListener listener) {
+    public MyInmueblesRecyclerViewAdapter(Context ctx,int layout, List<Inmueble> items, InmuebleInteractionListener listener) {
         mValues = items;
         mListener = listener;
+        this.ctx = ctx;
     }
 
     @Override
@@ -40,19 +40,13 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        //holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.tvTitulo.setText(holder.mItem.getTitle());
+        holder.tvDireccion.setText(holder.mItem.getAddress());
+        holder.tvPrecio.setText(String.valueOf(holder.mItem.getPrice()));
+        holder.tvHabitaciones.setText(String.valueOf(holder.mItem.getRooms()));
+        holder.tvSize.setText(String.valueOf(holder.mItem.getSize()));
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+
     }
 
     @Override
@@ -62,20 +56,26 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        //public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView  tvTitulo;
+        public final TextView tvDireccion;
+        public final TextView tvPrecio;
+        public final TextView tvHabitaciones;
+        public final TextView tvSize;
+        public Inmueble mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            //mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tvTitulo = view.findViewById(R.id.tvTitulo);
+            tvDireccion = view.findViewById(R.id.tvDireccion);
+            tvPrecio = view.findViewById(R.id.tvPrecio);
+            tvHabitaciones = view.findViewById(R.id.tvHabitaciones);
+            tvSize = view.findViewById(R.id.tvSize);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + tvTitulo.getText() + "'";
         }
     }
 }

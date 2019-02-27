@@ -74,7 +74,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvPrecio" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

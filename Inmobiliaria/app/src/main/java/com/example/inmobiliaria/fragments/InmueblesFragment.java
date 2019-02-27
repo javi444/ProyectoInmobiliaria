@@ -15,12 +15,14 @@ import com.example.inmobiliaria.adapters.MyInmueblesRecyclerViewAdapter;
 import com.example.inmobiliaria.R;
 
 import com.example.inmobiliaria.models.Inmueble;
+import com.example.inmobiliaria.responses.ResponseContainer;
 import com.example.inmobiliaria.retrofit.generator.ServiceGenerator;
 import com.example.inmobiliaria.retrofit.generator.TipoAutenticacion;
 import com.example.inmobiliaria.retrofit.services.InmuebleInteractionListener;
 import com.example.inmobiliaria.retrofit.services.InmuebleService;
 import com.example.inmobiliaria.util.UtilToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -79,12 +81,49 @@ public class InmueblesFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
+            inmueblesList = new ArrayList<>();
+            InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
+            //---------------
+            Call<ResponseContainer<Inmueble>> call = service.listInmueble();
+
+            call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
+
+
+                @Override
+                public void onResponse(Call<ResponseContainer<Inmueble>> call, Response<ResponseContainer<Inmueble>> response) {
+                    if (response.isSuccessful()) {
+                        // error
+                        Log.e("RequestSuccessful", response.message());
+                        inmueblesList = response.body().getRows();
+
+                        adapter = new MyInmueblesRecyclerViewAdapter(
+                                ctx,
+                                R.layout.fragment_inmuebles,
+                                inmueblesList,
+                                mListener
+
+                        );
+                        recyclerView.setAdapter(adapter);
+                        //}
+
+                    } else {
+                        Log.e("RequestError", response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
+                    Log.e("NetworkFailure", t.getMessage());
+                    //Toast.makeText(FotoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
         return view;
@@ -94,6 +133,7 @@ public class InmueblesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ctx = context;
         if (context instanceof InmuebleInteractionListener) {
             mListener = (InmuebleInteractionListener) context;
         } else {
@@ -119,27 +159,28 @@ public class InmueblesFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
 
-    public void GetInmueble(final boolean update){
-
-        InmuebleService service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
+   /* public void GetInmueble(final boolean update){
+        inmueblesList = new ArrayList<>();
+        InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
         //---------------
-        Call<List<Inmueble>> call = service.listInmueble();
+        Call<ResponseContainer<Inmueble>> call = service.listInmueble();
 
-        call.enqueue(new Callback<List<Inmueble>>() {
+        call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
 
 
             @Override
-            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+            public void onResponse(Call<ResponseContainer<Inmueble>> call, Response<ResponseContainer<Inmueble>> response) {
                 if (response.isSuccessful()) {
                     // error
                     Log.e("RequestSuccessful", response.message());
-                    inmueblesList = response.body();
+                    inmueblesList = response.body().getRows();
 
                     adapter = new MyInmueblesRecyclerViewAdapter(
                             ctx,
+                            R.layout.fragment_inmuebles,
                             inmueblesList,
-                            mListener,
-                            R.layout.fragment_inmuebles
+                            mListener
+
                     );
                     recyclerView.setAdapter(adapter);
                     //}
@@ -150,17 +191,17 @@ public class InmueblesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Inmueble>> call, Throwable t) {
+            public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
                 Log.e("NetworkFailure", t.getMessage());
                 //Toast.makeText(FotoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onResume() {
         super.onResume();
         this.GetInmueble(true);
 
-    }
+    }*/
 }

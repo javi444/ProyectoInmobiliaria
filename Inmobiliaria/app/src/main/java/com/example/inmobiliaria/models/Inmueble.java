@@ -1,35 +1,39 @@
 package com.example.inmobiliaria.models;
 
+import java.util.Locale;
+
 public class Inmueble {
 
     private String id;
-    private String titulo;
-    private String descripcion;
-    private double precio;
-    private String habitaciones;
-    private double tamanyo;
-    private String categoria;
-    private String direccion;
-    private String codigo;
-    private String ciudad;
-    private String provincia;
+    private User ownerId;
+    private String title;
+    private String description;
+    private double price;
+    private int rooms;
+    private double size;
+    private Category categoryId;
+    private String address;
+    private String zipcode;
+    private String city;
+    private String province;
     private String loc;
 
     public Inmueble() {
     }
 
-    public Inmueble(String id, String titulo, String descripcion, double precio, String habitaciones, double tamanyo, String categoria, String direccion, String codigo, String ciudad, String provincia, String loc) {
+    public Inmueble(String id, User ownerId, String title, String description, double price, int rooms, double size, Category categoryId, String address, String zipcode, String city, String province, String loc) {
         this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.habitaciones = habitaciones;
-        this.tamanyo = tamanyo;
-        this.categoria = categoria;
-        this.direccion = direccion;
-        this.codigo = codigo;
-        this.ciudad = ciudad;
-        this.provincia = provincia;
+        this.ownerId = ownerId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.rooms = rooms;
+        this.size = size;
+        this.categoryId = categoryId;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.province = province;
         this.loc = loc;
     }
 
@@ -41,84 +45,92 @@ public class Inmueble {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public User getOwnerId() {
+        return ownerId;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setOwnerId(User ownerId) {
+        this.ownerId = ownerId;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public double getPrecio() {
-        return precio;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getHabitaciones() {
-        return habitaciones;
+    public double getPrice() {
+        return price;
     }
 
-    public void setHabitaciones(String habitaciones) {
-        this.habitaciones = habitaciones;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public double getTamanyo() {
-        return tamanyo;
+    public int getRooms() {
+        return rooms;
     }
 
-    public void setTamanyo(double tamanyo) {
-        this.tamanyo = tamanyo;
+    public void setRooms(int rooms) {
+        this.rooms = rooms;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public double getSize() {
+        return size;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setSize(double size) {
+        this.size = size;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getZipcode() {
+        return zipcode;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
-    public String getProvincia() {
-        return provincia;
+    public String getCity() {
+        return city;
     }
 
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getLoc() {
@@ -136,24 +148,23 @@ public class Inmueble {
 
         Inmueble inmueble = (Inmueble) o;
 
-        if (Double.compare(inmueble.precio, precio) != 0) return false;
-        if (Double.compare(inmueble.tamanyo, tamanyo) != 0) return false;
+        if (Double.compare(inmueble.price, price) != 0) return false;
+        if (rooms != inmueble.rooms) return false;
+        if (Double.compare(inmueble.size, size) != 0) return false;
         if (id != null ? !id.equals(inmueble.id) : inmueble.id != null) return false;
-        if (titulo != null ? !titulo.equals(inmueble.titulo) : inmueble.titulo != null)
+        if (ownerId != null ? !ownerId.equals(inmueble.ownerId) : inmueble.ownerId != null)
             return false;
-        if (descripcion != null ? !descripcion.equals(inmueble.descripcion) : inmueble.descripcion != null)
+        if (title != null ? !title.equals(inmueble.title) : inmueble.title != null) return false;
+        if (description != null ? !description.equals(inmueble.description) : inmueble.description != null)
             return false;
-        if (habitaciones != null ? !habitaciones.equals(inmueble.habitaciones) : inmueble.habitaciones != null)
+        if (categoryId != null ? !categoryId.equals(inmueble.categoryId) : inmueble.categoryId != null)
             return false;
-        if (categoria != null ? !categoria.equals(inmueble.categoria) : inmueble.categoria != null)
+        if (address != null ? !address.equals(inmueble.address) : inmueble.address != null)
             return false;
-        if (direccion != null ? !direccion.equals(inmueble.direccion) : inmueble.direccion != null)
+        if (zipcode != null ? !zipcode.equals(inmueble.zipcode) : inmueble.zipcode != null)
             return false;
-        if (codigo != null ? !codigo.equals(inmueble.codigo) : inmueble.codigo != null)
-            return false;
-        if (ciudad != null ? !ciudad.equals(inmueble.ciudad) : inmueble.ciudad != null)
-            return false;
-        if (provincia != null ? !provincia.equals(inmueble.provincia) : inmueble.provincia != null)
+        if (city != null ? !city.equals(inmueble.city) : inmueble.city != null) return false;
+        if (province != null ? !province.equals(inmueble.province) : inmueble.province != null)
             return false;
         return loc != null ? loc.equals(inmueble.loc) : inmueble.loc == null;
     }
@@ -163,18 +174,19 @@ public class Inmueble {
         int result;
         long temp;
         result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (titulo != null ? titulo.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        temp = Double.doubleToLongBits(precio);
+        result = 31 * result + (ownerId != null ? ownerId.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (habitaciones != null ? habitaciones.hashCode() : 0);
-        temp = Double.doubleToLongBits(tamanyo);
+        result = 31 * result + rooms;
+        temp = Double.doubleToLongBits(size);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (categoria != null ? categoria.hashCode() : 0);
-        result = 31 * result + (direccion != null ? direccion.hashCode() : 0);
-        result = 31 * result + (codigo != null ? codigo.hashCode() : 0);
-        result = 31 * result + (ciudad != null ? ciudad.hashCode() : 0);
-        result = 31 * result + (provincia != null ? provincia.hashCode() : 0);
+        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (zipcode != null ? zipcode.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (loc != null ? loc.hashCode() : 0);
         return result;
     }
@@ -183,16 +195,17 @@ public class Inmueble {
     public String toString() {
         return "Inmueble{" +
                 "id='" + id + '\'' +
-                ", titulo='" + titulo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", precio=" + precio +
-                ", habitaciones='" + habitaciones + '\'' +
-                ", tamanyo=" + tamanyo +
-                ", categoria='" + categoria + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", codigo='" + codigo + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                ", provincia='" + provincia + '\'' +
+                ", ownerId=" + ownerId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", rooms=" + rooms +
+                ", size=" + size +
+                ", categoryId=" + categoryId +
+                ", address='" + address + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", city='" + city + '\'' +
+                ", province='" + province + '\'' +
                 ", loc='" + loc + '\'' +
                 '}';
     }

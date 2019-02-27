@@ -22,6 +22,14 @@
     <item android:title="Configuración">
         <menu>
             <item
+                android:id="@+id/nav_login"
+                android:title="Iniciar sesión"
+                android:icon="@drawable/login"/>
+            <item
+                android:id="@+id/nav_registro"
+                android:title="Crear cuenta"
+                android:icon="@drawable/registro"/>
+            <item
                 android:id="@+id/nav_user"
                 android:icon="@drawable/user"
                 android:title="Mi perfil" />

@@ -27,12 +27,12 @@ public class User {
     private String picture;
     @SerializedName("favs")
     @Expose
-    private List favs;
+    private Inmueble favs;
 
     public User() {
     }
 
-    public User(String id, String email, String password, String name, String role, String picture, List favs) {
+    public User(String id, String email, String password, String name, String role, String picture, Inmueble favs) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -90,11 +90,11 @@ public class User {
         this.picture = picture;
     }
 
-    public List getFavs() {
+    public Inmueble getFavs() {
         return favs;
     }
 
-    public void setFavs(List favs) {
+    public void setFavs(Inmueble favs) {
         this.favs = favs;
     }
 

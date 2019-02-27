@@ -18,18 +18,23 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.inmobiliaria.R;
+import com.example.inmobiliaria.fragments.InmueblesFragment;
+import com.example.inmobiliaria.retrofit.services.InmuebleInteractionListener;
 import com.example.inmobiliaria.util.UtilToken;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InmuebleInteractionListener {
 
     private Toolbar toolbar;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.nav_view);
+        hideMenuItem();
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -47,8 +52,9 @@ public class DashboardActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
+        getSupportFragmentManager().beginTransaction().add(R.id.container, new InmueblesFragment(), "inmueblesFrag").commit();
     }
 
     @Override
@@ -66,6 +72,22 @@ public class DashboardActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dashboard, menu);
         return true;
+    }
+
+    private void hideMenuItem() {
+        Menu items = navigationView.getMenu();
+
+        if (UtilToken.getToken(DashboardActivity.this) == null) {
+            items.findItem(R.id.nav_fav).setVisible(false);
+            items.findItem(R.id.nav_mis).setVisible(false);
+            items.findItem(R.id.nav_inmuebles).setVisible(false);
+            items.findItem(R.id.nav_user).setVisible(false);
+            items.findItem(R.id.nav_exit).setVisible(false);
+        }else{
+            items.findItem(R.id.nav_login).setVisible(false);
+            items.findItem(R.id.nav_registro).setVisible(false);
+        }
+
     }
 
     @Override

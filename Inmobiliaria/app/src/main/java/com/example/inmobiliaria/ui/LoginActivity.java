@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.i("PRUEBA","Entra en evento click");
                             Intent i = new Intent(
                                     LoginActivity.this,
-                                    InmueblesFragment.class
+                                    DashboardActivity.class
                             );
 
                             startActivity(i);

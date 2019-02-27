@@ -27,12 +27,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textEmailAddress"
+        android:text="eduardo@eduardo.com"
         android:textColor="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewIcono"
-        android:hint="Email"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIcono" />
 
     <EditText
         android:id="@+id/editTextPass"
@@ -42,12 +43,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="Contraseña"
         android:inputType="textPassword"
+        android:text="123456"
         android:textColor="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        android:hint="Contraseña"/>
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <Button
         android:id="@+id/buttonLogin"

@@ -17,5 +17,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.inmobiliaria.fragments.InmueblesFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

@@ -27,12 +27,13 @@ public class User {
     private String picture;
     @SerializedName("favs")
     @Expose
-    private Inmueble favs;
+    private List<Inmueble> favs;
 
     public User() {
     }
 
-    public User(String id, String email, String password, String name, String role, String picture, Inmueble favs) {
+
+    public User(String id, String email, String password, String name, String role, String picture, List<Inmueble> favs) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -41,6 +42,7 @@ public class User {
         this.picture = picture;
         this.favs = favs;
     }
+
 
     public String getId() {
         return id;
@@ -90,13 +92,14 @@ public class User {
         this.picture = picture;
     }
 
-    public Inmueble getFavs() {
+    public List<Inmueble> getFavs() {
         return favs;
     }
 
-    public void setFavs(Inmueble favs) {
+    public void setFavs(List<Inmueble> favs) {
         this.favs = favs;
     }
+
 
     @Override
     public boolean equals(Object o) {

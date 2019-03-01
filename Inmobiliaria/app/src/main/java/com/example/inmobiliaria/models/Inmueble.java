@@ -1,5 +1,6 @@
 package com.example.inmobiliaria.models;
 
+import java.util.List;
 import java.util.Locale;
 
 public class Inmueble {
@@ -17,11 +18,12 @@ public class Inmueble {
     private String city;
     private String province;
     private String loc;
+    private List<String> photos;
 
     public Inmueble() {
     }
 
-    public Inmueble(String id, User ownerId, String title, String description, double price, int rooms, double size, Category categoryId, String address, String zipcode, String city, String province, String loc) {
+    public Inmueble(String id, User ownerId, String title, String description, double price, int rooms, double size, Category categoryId, String address, String zipcode, String city, String province, String loc, List<String> photos) {
         this.id = id;
         this.ownerId = ownerId;
         this.title = title;
@@ -35,6 +37,7 @@ public class Inmueble {
         this.city = city;
         this.province = province;
         this.loc = loc;
+        this.photos = photos;
     }
 
     public String getId() {
@@ -141,6 +144,14 @@ public class Inmueble {
         this.loc = loc;
     }
 
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -166,7 +177,8 @@ public class Inmueble {
         if (city != null ? !city.equals(inmueble.city) : inmueble.city != null) return false;
         if (province != null ? !province.equals(inmueble.province) : inmueble.province != null)
             return false;
-        return loc != null ? loc.equals(inmueble.loc) : inmueble.loc == null;
+        if (loc != null ? !loc.equals(inmueble.loc) : inmueble.loc != null) return false;
+        return photos != null ? photos.equals(inmueble.photos) : inmueble.photos == null;
     }
 
     @Override
@@ -188,6 +200,7 @@ public class Inmueble {
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (loc != null ? loc.hashCode() : 0);
+        result = 31 * result + (photos != null ? photos.hashCode() : 0);
         return result;
     }
 
@@ -207,6 +220,7 @@ public class Inmueble {
                 ", city='" + city + '\'' +
                 ", province='" + province + '\'' +
                 ", loc='" + loc + '\'' +
+                ", photos=" + photos +
                 '}';
     }
 }

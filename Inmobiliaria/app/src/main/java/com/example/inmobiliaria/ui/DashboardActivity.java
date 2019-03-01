@@ -1,5 +1,6 @@
 package com.example.inmobiliaria.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,6 +28,7 @@ public class DashboardActivity extends AppCompatActivity
 
     private Toolbar toolbar;
     private NavigationView navigationView;
+    TextView nav_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class DashboardActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         hideMenuItem();
         setSupportActionBar(toolbar);
+        nav_login = findViewById(R.id.nav_login);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +58,7 @@ public class DashboardActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         getSupportFragmentManager().beginTransaction().add(R.id.container, new InmueblesFragment(), "inmueblesFrag").commit();
+
     }
 
     @Override
@@ -121,6 +125,13 @@ public class DashboardActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_exit) {
 
+        } else if (id == R.id.nav_login){
+            Intent i = new Intent(
+                    DashboardActivity.this,
+                    LoginActivity.class
+            );
+
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

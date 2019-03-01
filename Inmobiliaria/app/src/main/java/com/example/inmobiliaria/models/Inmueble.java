@@ -1,7 +1,6 @@
 package com.example.inmobiliaria.models;
 
 import java.util.List;
-import java.util.Locale;
 
 public class Inmueble {
 

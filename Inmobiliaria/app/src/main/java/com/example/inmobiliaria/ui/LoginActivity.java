@@ -44,11 +44,6 @@ public class LoginActivity extends AppCompatActivity {
                 String email_txt = editTextEmail.getText().toString();
                 String password_txt = editTextPass.getText().toString();
 
-                // String credentials = email_txt + ":" + password_txt;
-
-                // final String basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-
                 LoginService service = ServiceGenerator.createService(LoginService.class, email_txt, password_txt);
                 Call<LoginResponse> call = service.doLogin();
 
@@ -56,11 +51,11 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (response.code() != 201) {
-                            // error
+
                             Log.e("RequestError", response.message());
                             Toast.makeText(LoginActivity.this, "Error de petición", Toast.LENGTH_SHORT).show();
                         } else {
-                            //UtilToken.getToken( MainActivity.this);
+
                             UtilToken.setToken(LoginActivity.this, response.body().getToken());
                             Log.i("PRUEBA","Entra en evento click");
                             Intent i = new Intent(

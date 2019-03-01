@@ -60,17 +60,11 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (response.code() == 201) {
-                            // éxito
-                            // startActivity(new Intent(RegistroActivity.this, NuevoActivity.class));
-                            //Toast.makeText(RegistroUsuario.this, "Usuario registrado y logeado con éxito", Toast.LENGTH_LONG).show();
-                            //Log.d("token", response.body().getToken());
 
-                            //ServiceGenerator.jwtToken = response.body().getToken();
                             UtilToken.setToken(RegistroUsuarioActivity.this, response.body().getToken());
-                            //startActivity(new Intent(RegistroUsuarioActivity.this, PaginaPrincipal2.class));
 
                         } else {
-                            // error
+
                             Toast.makeText(RegistroUsuarioActivity.this, "Error en el registro. Revise los datos introducidos", Toast.LENGTH_LONG).show();
                         }
                     }

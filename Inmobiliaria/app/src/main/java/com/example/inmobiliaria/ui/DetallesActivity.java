@@ -45,7 +45,7 @@ public class DetallesActivity extends AppCompatActivity {
 
         inmueblesList = new ArrayList<>();
         InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
-        //---------------
+
         Call<DetallesResponseContainer<Inmueble>> call = service.getInmueble(idInmueble);
 
         call.enqueue(new Callback<DetallesResponseContainer<Inmueble>>() {
@@ -53,7 +53,7 @@ public class DetallesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetallesResponseContainer<Inmueble>> call, Response<DetallesResponseContainer<Inmueble>> response) {
                 if (response.isSuccessful()) {
-                    // error
+
                     Log.e("RequestSuccessful", response.message());
                     inmueble = response.body().getRows();
 
@@ -67,7 +67,7 @@ public class DetallesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<DetallesResponseContainer<Inmueble>> call, Throwable t) {
                 Log.e("NetworkFailure", t.getMessage());
-                //Toast.makeText(FotoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -93,7 +93,7 @@ public class DetallesActivity extends AppCompatActivity {
 
     private void setearDetalles() {
 
-        adapter=new ImagenAdapter(DetallesActivity.this, inmueble.getPhotos());
+        adapter = new ImagenAdapter(DetallesActivity.this, inmueble.getPhotos());
         pager.setAdapter(adapter);
         titulo.setText(inmueble.getTitle());
         categoria.setText(inmueble.getCategoryId().getName());

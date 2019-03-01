@@ -121,7 +121,7 @@ public class InmueblesFragment extends Fragment {
                 @Override
                 public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
                     Log.e("NetworkFailure", t.getMessage());
-                    //Toast.makeText(FotoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -159,49 +159,4 @@ public class InmueblesFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
 
-   /* public void GetInmueble(final boolean update){
-        inmueblesList = new ArrayList<>();
-        InmuebleService service = ServiceGenerator.createService(InmuebleService.class);
-        //---------------
-        Call<ResponseContainer<Inmueble>> call = service.listInmueble();
-
-        call.enqueue(new Callback<ResponseContainer<Inmueble>>() {
-
-
-            @Override
-            public void onResponse(Call<ResponseContainer<Inmueble>> call, Response<ResponseContainer<Inmueble>> response) {
-                if (response.isSuccessful()) {
-                    // error
-                    Log.e("RequestSuccessful", response.message());
-                    inmueblesList = response.body().getRows();
-
-                    adapter = new MyInmueblesRecyclerViewAdapter(
-                            ctx,
-                            R.layout.fragment_inmuebles,
-                            inmueblesList,
-                            mListener
-
-                    );
-                    recyclerView.setAdapter(adapter);
-                    //}
-
-                } else {
-                    Log.e("RequestError", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseContainer<Inmueble>> call, Throwable t) {
-                Log.e("NetworkFailure", t.getMessage());
-                //Toast.makeText(FotoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
-
-   /* @Override
-    public void onResume() {
-        super.onResume();
-        this.GetInmueble(true);
-
-    }*/
 }

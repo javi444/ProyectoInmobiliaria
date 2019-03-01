@@ -83,7 +83,7 @@ public class ImagenAdapter extends PagerAdapter {
 
         if (cxt != null ? !cxt.equals(that.cxt) : that.cxt != null) return false;
         if (urls != null ? !urls.equals(that.urls) : that.urls != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+
         if (!Arrays.equals(photos, that.photos)) return false;
         return layoutInflater != null ? layoutInflater.equals(that.layoutInflater) : that.layoutInflater == null;
     }

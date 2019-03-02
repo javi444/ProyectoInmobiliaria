@@ -3,6 +3,7 @@ package com.example.inmobiliaria.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,23 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.inmobiliaria.R;
 import com.example.inmobiliaria.models.Inmueble;
-import com.example.inmobiliaria.retrofit.services.InmuebleInteractionListener;
-import com.example.inmobiliaria.ui.DetallesActivity;
 
+import com.example.inmobiliaria.responses.InmuebleResponse;
+
+import com.example.inmobiliaria.retrofit.generator.ServiceGenerator;
+import com.example.inmobiliaria.retrofit.generator.TipoAutenticacion;
+import com.example.inmobiliaria.retrofit.services.InmuebleInteractionListener;
+import com.example.inmobiliaria.retrofit.services.InmuebleService;
+import com.example.inmobiliaria.ui.DetallesActivity;
+import com.example.inmobiliaria.ui.LoginActivity;
+import com.example.inmobiliaria.util.UtilToken;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Inmueble} and makes a call to the
@@ -26,7 +40,10 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
 
     private final List<Inmueble> mValues;
     private final InmuebleInteractionListener mListener;
-    Context ctx;
+    private final Context ctx;
+    private String jwt;
+    private InmuebleService inmuebleService;
+    private List<Inmueble> inmueblesList;
 
     public MyInmueblesRecyclerViewAdapter(Context ctx,int layout, List<Inmueble> items, InmuebleInteractionListener listener) {
         mValues = items;
@@ -43,6 +60,7 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        jwt = UtilToken.getToken(ctx);
         holder.mItem = mValues.get(position);
         holder.tvTitulo.setText(holder.mItem.getTitle());
         holder.tvDireccion.setText(holder.mItem.getAddress());
@@ -63,6 +81,44 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
         } else {
             Glide.with(ctx).load("http://www.bellezaverde.es/wp-content/uploads/2017/08/wnetrze-w-szarosciach-nowoczesne-13.jpg").into(holder.imagen);}
 
+        holder.fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (jwt == null) {
+                    Intent i = new Intent(ctx, LoginActivity.class);
+                    ctx.startActivity(i);
+                } else {
+
+                    inmueblesList = new ArrayList<>();
+                    inmuebleService = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
+
+                    Call<InmuebleResponse> call = inmuebleService.deleteFavoritos(holder.mItem.getId());
+                    call.enqueue(new Callback<InmuebleResponse>() {
+
+                        @Override
+                        public void onResponse(Call<InmuebleResponse> call, Response<InmuebleResponse> response) {
+                            if (response.isSuccessful()) {
+                                // error
+                                Log.e("RequestSuccessful", response.message());
+
+
+                            } else {
+                                Log.e("RequestError", response.message());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<InmuebleResponse> call, Throwable t) {
+                            Log.e("NetworkFailure", t.getMessage());
+
+                        }
+                    });
+                }
+
+            }
+        });
     }
 
     @Override
@@ -79,6 +135,7 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
         public final TextView tvSize;
         public Inmueble mItem;
         public final ImageView imagen;
+        public final ImageView fav;
 
         public ViewHolder(View view) {
             super(view);
@@ -89,6 +146,7 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
             tvHabitaciones = view.findViewById(R.id.tvHabitaciones);
             tvSize = view.findViewById(R.id.tvSize);
             imagen = view.findViewById(R.id.picture);
+            fav = view.findViewById(R.id.iconFav);
 
         }
 

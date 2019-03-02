@@ -85,6 +85,15 @@
             app:layout_constraintStart_toEndOf="@+id/tvHabitaciones"
             app:layout_constraintTop_toBottomOf="@+id/tvPrecio" />
 
+        <ImageView
+            android:id="@+id/iconFav"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrecio"
+            app:srcCompat="@drawable/like" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

@@ -1,11 +1,14 @@
-package com.example.inmobiliaria.models;
+package com.example.inmobiliaria.responses;
 
+import com.example.inmobiliaria.models.Category;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Inmueble {
+public class InmuebleResponse {
 
     private String id;
-    private User ownerId;
+    private UserResponse ownerId;
     private String title;
     private String description;
     private double price;
@@ -17,13 +20,13 @@ public class Inmueble {
     private String city;
     private String province;
     private String loc;
-    private List<String> photos;
-    private boolean esFav;
+    private List<String> favs = new ArrayList<>();
+    private List<String> photos = new ArrayList<>();
 
-    public Inmueble() {
+    public InmuebleResponse() {
     }
 
-    public Inmueble(String id, User ownerId, String title, String description, double price, int rooms, double size, Category categoryId, String address, String zipcode, String city, String province, String loc, List<String> photos, boolean esFav) {
+    public InmuebleResponse(String id, UserResponse ownerId, String title, String description, double price, int rooms, double size, Category categoryId, String address, String zipcode, String city, String province, String loc, List<String> favs, List<String> photos) {
         this.id = id;
         this.ownerId = ownerId;
         this.title = title;
@@ -37,8 +40,8 @@ public class Inmueble {
         this.city = city;
         this.province = province;
         this.loc = loc;
+        this.favs = favs;
         this.photos = photos;
-        this.esFav = esFav;
     }
 
     public String getId() {
@@ -49,11 +52,11 @@ public class Inmueble {
         this.id = id;
     }
 
-    public User getOwnerId() {
+    public UserResponse getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(User ownerId) {
+    public void setOwnerId(UserResponse ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -145,6 +148,14 @@ public class Inmueble {
         this.loc = loc;
     }
 
+    public List<String> getFavs() {
+        return favs;
+    }
+
+    public void setFavs(List<String> favs) {
+        this.favs = favs;
+    }
+
     public List<String> getPhotos() {
         return photos;
     }
@@ -153,42 +164,31 @@ public class Inmueble {
         this.photos = photos;
     }
 
-    public boolean isEsFav() {
-        return esFav;
-    }
-
-    public void setEsFav(boolean esFav) {
-        this.esFav = esFav;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Inmueble inmueble = (Inmueble) o;
+        InmuebleResponse that = (InmuebleResponse) o;
 
-        if (Double.compare(inmueble.price, price) != 0) return false;
-        if (rooms != inmueble.rooms) return false;
-        if (Double.compare(inmueble.size, size) != 0) return false;
-        if (esFav != inmueble.esFav) return false;
-        if (id != null ? !id.equals(inmueble.id) : inmueble.id != null) return false;
-        if (ownerId != null ? !ownerId.equals(inmueble.ownerId) : inmueble.ownerId != null)
+        if (Double.compare(that.price, price) != 0) return false;
+        if (rooms != that.rooms) return false;
+        if (Double.compare(that.size, size) != 0) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (ownerId != null ? !ownerId.equals(that.ownerId) : that.ownerId != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null)
             return false;
-        if (title != null ? !title.equals(inmueble.title) : inmueble.title != null) return false;
-        if (description != null ? !description.equals(inmueble.description) : inmueble.description != null)
+        if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null)
             return false;
-        if (categoryId != null ? !categoryId.equals(inmueble.categoryId) : inmueble.categoryId != null)
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (zipcode != null ? !zipcode.equals(that.zipcode) : that.zipcode != null) return false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return false;
+        if (province != null ? !province.equals(that.province) : that.province != null)
             return false;
-        if (address != null ? !address.equals(inmueble.address) : inmueble.address != null)
-            return false;
-        if (zipcode != null ? !zipcode.equals(inmueble.zipcode) : inmueble.zipcode != null)
-            return false;
-        if (city != null ? !city.equals(inmueble.city) : inmueble.city != null) return false;
-        if (province != null ? !province.equals(inmueble.province) : inmueble.province != null)
-            return false;
-        if (loc != null ? !loc.equals(inmueble.loc) : inmueble.loc != null) return false;
-        return photos != null ? photos.equals(inmueble.photos) : inmueble.photos == null;
+        if (loc != null ? !loc.equals(that.loc) : that.loc != null) return false;
+        if (favs != null ? !favs.equals(that.favs) : that.favs != null) return false;
+        return photos != null ? photos.equals(that.photos) : that.photos == null;
     }
 
     @Override
@@ -210,14 +210,14 @@ public class Inmueble {
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (loc != null ? loc.hashCode() : 0);
+        result = 31 * result + (favs != null ? favs.hashCode() : 0);
         result = 31 * result + (photos != null ? photos.hashCode() : 0);
-        result = 31 * result + (esFav ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "Inmueble{" +
+        return "InmuebleResponse{" +
                 "id='" + id + '\'' +
                 ", ownerId=" + ownerId +
                 ", title='" + title + '\'' +
@@ -231,8 +231,8 @@ public class Inmueble {
                 ", city='" + city + '\'' +
                 ", province='" + province + '\'' +
                 ", loc='" + loc + '\'' +
+                ", favs=" + favs +
                 ", photos=" + photos +
-                ", esFav=" + esFav +
                 '}';
     }
 }

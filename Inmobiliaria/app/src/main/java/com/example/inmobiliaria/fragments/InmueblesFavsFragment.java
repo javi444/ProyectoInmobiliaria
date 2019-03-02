@@ -131,6 +131,7 @@ public class InmueblesFavsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ctx=context;
         if (context instanceof InmuebleInteractionListener) {
             mListener = (InmuebleInteractionListener) context;
         } else {

@@ -25,24 +25,21 @@ public class User {
     @SerializedName("picture")
     @Expose
     private String picture;
-    @SerializedName("favs")
+    /*@SerializedName("favs")
     @Expose
-    private List<Inmueble> favs;
+    private List<Inmueble> favs;*/
 
     public User() {
     }
 
-
-    public User(String id, String email, String password, String name, String role, String picture, List<Inmueble> favs) {
+    public User(String id, String email, String password, String name, String role, String picture) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.role = role;
         this.picture = picture;
-        this.favs = favs;
     }
-
 
     public String getId() {
         return id;
@@ -92,15 +89,6 @@ public class User {
         this.picture = picture;
     }
 
-    public List<Inmueble> getFavs() {
-        return favs;
-    }
-
-    public void setFavs(List<Inmueble> favs) {
-        this.favs = favs;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,8 +102,7 @@ public class User {
             return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (role != null ? !role.equals(user.role) : user.role != null) return false;
-        if (picture != null ? !picture.equals(user.picture) : user.picture != null) return false;
-        return favs != null ? favs.equals(user.favs) : user.favs == null;
+        return picture != null ? picture.equals(user.picture) : user.picture == null;
     }
 
     @Override
@@ -126,7 +113,6 @@ public class User {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (picture != null ? picture.hashCode() : 0);
-        result = 31 * result + (favs != null ? favs.hashCode() : 0);
         return result;
     }
 
@@ -139,7 +125,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", role='" + role + '\'' +
                 ", picture='" + picture + '\'' +
-                ", favs=" + favs +
                 '}';
     }
 }

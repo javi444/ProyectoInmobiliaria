@@ -44,6 +44,7 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
     private String jwt;
     private InmuebleService inmuebleService;
     private List<Inmueble> inmueblesList;
+    private boolean esFav;
 
     public MyInmueblesRecyclerViewAdapter(Context ctx,int layout, List<Inmueble> items, InmuebleInteractionListener listener) {
         mValues = items;
@@ -76,6 +77,10 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
             }
         });
 
+        if(UtilToken.getToken(ctx) == null){
+            holder.fav.setVisibility(View.GONE);
+        }
+
         if (holder.mItem.getPhotos() != null) {
             Glide.with(ctx).load(holder.mItem.getPhotos().get(0)).into(holder.imagen);
         } else {
@@ -91,30 +96,60 @@ public class MyInmueblesRecyclerViewAdapter extends RecyclerView.Adapter<MyInmue
                     ctx.startActivity(i);
                 } else {
 
-                    inmueblesList = new ArrayList<>();
-                    inmuebleService = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
+                    if (esFav = mValues.get(position).isEsFav()){
+                        inmueblesList = new ArrayList<>();
+                        inmuebleService = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
 
-                    Call<InmuebleResponse> call = inmuebleService.deleteFavoritos(holder.mItem.getId());
-                    call.enqueue(new Callback<InmuebleResponse>() {
+                        Call<InmuebleResponse> call = inmuebleService.deleteFavoritos(holder.mItem.getId());
+                        call.enqueue(new Callback<InmuebleResponse>() {
 
-                        @Override
-                        public void onResponse(Call<InmuebleResponse> call, Response<InmuebleResponse> response) {
-                            if (response.isSuccessful()) {
-                                // error
-                                Log.e("RequestSuccessful", response.message());
+                            @Override
+                            public void onResponse(Call<InmuebleResponse> call, Response<InmuebleResponse> response) {
+                                if (response.isSuccessful()) {
+                                    // error
+                                    Log.e("RequestSuccessful", response.message());
+                                    holder.fav.setImageResource(R.drawable.like);
+                                    esFav = ! esFav;
 
-
-                            } else {
-                                Log.e("RequestError", response.message());
+                                } else {
+                                    Log.e("RequestError", response.message());
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<InmuebleResponse> call, Throwable t) {
-                            Log.e("NetworkFailure", t.getMessage());
+                            @Override
+                            public void onFailure(Call<InmuebleResponse> call, Throwable t) {
+                                Log.e("NetworkFailure", t.getMessage());
 
-                        }
-                    });
+                            }
+                        });
+                    }else{
+                        inmueblesList = new ArrayList<>();
+                        inmuebleService = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
+
+                        Call<InmuebleResponse> call = inmuebleService.addFavoritos(holder.mItem.getId());
+                        call.enqueue(new Callback<InmuebleResponse>() {
+
+                            @Override
+                            public void onResponse(Call<InmuebleResponse> call, Response<InmuebleResponse> response) {
+                                if (response.isSuccessful()) {
+                                    // error
+                                    Log.e("RequestSuccessful", response.message());
+                                    holder.fav.setImageResource(R.drawable.likecolor);
+                                    esFav = ! esFav;
+
+                                } else {
+                                    Log.e("RequestError", response.message());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<InmuebleResponse> call, Throwable t) {
+                                Log.e("NetworkFailure", t.getMessage());
+
+                            }
+                        });
+                    }
+
                 }
 
             }

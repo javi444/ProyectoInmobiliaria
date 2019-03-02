@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText editTextEmail, editTextPass;
     Button buttonLogin;
-    TextView textViewRegistro;
+    TextView textViewRegistro, textViewPasar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,5 +92,19 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        /*textViewPasar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(
+                        LoginActivity.this,
+                        DashboardActivity.class
+                );
+
+                startActivity(i);
+
+            }
+        });*/
     }
 }

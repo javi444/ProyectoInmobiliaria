@@ -3,6 +3,8 @@ package com.example.inmobiliaria.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.inmobiliaria.R;
+
 public class UtilToken {
 
     public static void setToken(Context mContext, String token){
@@ -41,5 +43,17 @@ public class UtilToken {
     public static String getPhotoUser(Context ctx) {
         SharedPreferences prefs = ctx.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         return prefs.getString("fotoUser", null);
+    }
+
+    public static void clearAll(Context mContext){
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(
+                "login",
+                Context.MODE_PRIVATE
+        );
+
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+
     }
 }

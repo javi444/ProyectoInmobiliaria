@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.inmobiliaria.R;
+import com.example.inmobiliaria.fragments.InmueblesFavsFragment;
 import com.example.inmobiliaria.fragments.InmueblesFragment;
 import com.example.inmobiliaria.retrofit.services.InmuebleInteractionListener;
 import com.example.inmobiliaria.util.UtilToken;
@@ -112,14 +113,19 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inmuebles) {
-
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new InmueblesFragment()).commit();
         } else if (id == R.id.nav_fav) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new InmueblesFavsFragment()).commit();
 
         } else if (id == R.id.nav_mis) {
 
         } else if (id == R.id.nav_user) {
 
         } else if (id == R.id.nav_exit) {
+            UtilToken.clearAll(this);
+            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
 
         } else if (id == R.id.nav_login){
             Intent i = new Intent(

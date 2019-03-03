@@ -32,4 +32,7 @@ public interface InmuebleService {
     @DELETE("/properties/fav/{id}")
     Call<InmuebleResponse> deleteFavoritos(@Path("id") String id);
 
+    @POST("/properties")
+    Call<Inmueble> addInmueble();
+
 }

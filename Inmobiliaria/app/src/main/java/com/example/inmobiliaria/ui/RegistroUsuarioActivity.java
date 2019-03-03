@@ -33,8 +33,8 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuario);
 
-        editTextEmail2 = findViewById(R.id.editTextEmail2);
-        editTextNombre = findViewById(R.id.editTextNombre);
+        editTextEmail2 = findViewById(R.id.etDescripcion);
+        editTextNombre = findViewById(R.id.etTitulo);
         editTextPass2 = findViewById(R.id.editTextPass2);
         buttonRegistro = findViewById(R.id.buttonRegistro);
         tvVolverLogin = findViewById(R.id.tvVolverLogin);

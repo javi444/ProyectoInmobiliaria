@@ -41,6 +41,19 @@ public class Inmueble {
         this.esFav = esFav;
     }
 
+    public Inmueble(String title, String description, double price, int rooms, double size, String address, String zipcode, String city, String province) {
+
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.rooms = rooms;
+        this.size = size;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.province = province;
+    }
+
     public String getId() {
         return id;
     }

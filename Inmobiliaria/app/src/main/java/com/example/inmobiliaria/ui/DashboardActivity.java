@@ -41,6 +41,7 @@ public class DashboardActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         nav_login = findViewById(R.id.nav_login);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +54,10 @@ public class DashboardActivity extends AppCompatActivity
                 startActivity(i);
             }
         });
+
+        if (UtilToken.getToken(DashboardActivity.this) == null) {
+            fab.hide();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -145,7 +150,7 @@ public class DashboardActivity extends AppCompatActivity
         return true;
     }
 
-    public void mostrarInfoUsuarioMenu() {
+    /*public void mostrarInfoUsuarioMenu() {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -167,5 +172,5 @@ public class DashboardActivity extends AppCompatActivity
         email.setText(UtilToken.getEmailUser(DashboardActivity.this));
         Glide.with(this).load(UtilToken.getPhotoUser(DashboardActivity.this)).apply(RequestOptions.circleCropTransform()).into(iv);
 
-    }
+    }*/
 }

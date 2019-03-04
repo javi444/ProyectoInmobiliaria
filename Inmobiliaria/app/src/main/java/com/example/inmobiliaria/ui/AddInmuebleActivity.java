@@ -30,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddInmuebleActivity extends AppCompatActivity {
-    EditText titulo, descripcion, precio, habitaciones, tamanyo, direccion, codigo, ciudad, provincia;
+    EditText titulo, descripcion, precio, habitaciones, tamanyo, direccion, codigo, ciudad, provincia, localizacion;
     Button enviar;
     private Spinner categories;
     UserResponse user;
@@ -57,6 +57,7 @@ public class AddInmuebleActivity extends AppCompatActivity {
         provincia = findViewById(R.id.etProvincia);
         enviar = findViewById(R.id.buttonRegistro);
         categories = findViewById(R.id.spinner_category);
+        localizacion = findViewById(R.id.etLocalizacion);
         cargarCategorias();
 
         enviar.setOnClickListener(new View.OnClickListener() {
@@ -116,14 +117,14 @@ public class AddInmuebleActivity extends AppCompatActivity {
         inmueble.setProvince(provincia.getText().toString());
         inmueble.setOwnerId(user.getId());
         inmueble.setCategoryId(categoria.getId());
-        inmueble.setLoc(loc);
+        inmueble.setLoc(localizacion.getText().toString());
 
         addInmueble(inmueble);
 
     }
 
     public void addInmueble(AddInmuebleDto inmueble) {
-        service = ServiceGenerator.createService(InmuebleService.class, jwt, TipoAutenticacion.JWT);
+        service = ServiceGenerator.createService(InmuebleService.class, UtilToken.getToken(this), TipoAutenticacion.JWT);
 
 
         Call<AddInmuebleDto> call = service.addInmueble(inmueble);
